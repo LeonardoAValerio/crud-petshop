@@ -10,6 +10,7 @@ int main(void)
     Funcionarios *funcionarios = criarListaFunc();
     Clientes* clientes = criarListaClientes();
     Servicos *servicos = criarListaServicos();
+    Agendamentos *agendamento = criarListaAgendamentos();
 
     for (;;)
     {
@@ -35,7 +36,7 @@ int main(void)
         }
         else if (option == 3)
         {
-            menuServicos(servicos, funcionarios, pets);
+            menuServicos(servicos, funcionarios, agendamento , pets);
 
         }
         else if (option == 4)
