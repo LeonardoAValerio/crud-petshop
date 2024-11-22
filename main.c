@@ -1,6 +1,7 @@
 #include "animal.h"
 #include "funcionario.h"
 #include "cliente.h"
+#include "servico.h"
 
 int main(void)
 {
@@ -8,6 +9,8 @@ int main(void)
     Pets *pets = criarListaPets();
     Funcionarios *funcionarios = criarListaFunc();
     Clientes* clientes = criarListaClientes();
+    Servicos *servicos = criarListaServicos();
+
     for (;;)
     {
         system("cls");
@@ -32,7 +35,8 @@ int main(void)
         }
         else if (option == 3)
         {
-            printf("Em producao...\n");
+            menuServicos(servicos, funcionarios, pets);
+
         }
         else if (option == 4)
         {
