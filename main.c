@@ -24,6 +24,7 @@ int main(void)
         printf("[6] - Relatorios Financeiros\n");
         printf("[0] - Encerrar Programa\n\n");
         printf("Informe oque deseja: ");
+        fflush(stdin);
         scanf("%d", &option);
         fflush(stdin);
         if (option == 1)
@@ -36,8 +37,7 @@ int main(void)
         }
         else if (option == 3)
         {
-            menuServicos(servicos, funcionarios, agendamento , pets);
-
+            menuServicos(servicos, agendamento, funcionarios, pets);
         }
         else if (option == 4)
         {
