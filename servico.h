@@ -235,20 +235,20 @@ void inserirAgendamento(Agendamentos *agendamentos, Servicos *servicos, Funciona
         return;
     }
 
-    // if (servicos == NULL) {
-    //     printf("Nenhum servico cadastrado.\n");
-    //     return;
-    // }
+    if (*servicos == NULL) {
+        printf("Nenhum servico cadastrado.\n");
+        return;
+    }
 
-    // if (*funcionarios == NULL) {
-    //     printf("Nenhum funcionario cadastrado.\n");
-    //     return;
-    // }
+    if (*funcionarios == NULL) {
+        printf("Nenhum funcionario cadastrado.\n");
+        return;
+    }
 
-    // if (*pets == NULL) {
-    //     printf("Nenhum pet cadastrado.\n");
-    //     return;
-    // }
+    if (*pets == NULL) {
+        printf("Nenhum pet cadastrado.\n");
+        return;
+    }
 
     if (*agendamentos == NULL) {
         *agendamentos = novo;
@@ -330,7 +330,7 @@ void cancelarAgendamento(Agendamentos* agendamentos) {
     }
 
     if (strcmp(ag->status, "executado") == 0) {
-        printf("O agendamento já foi executado e nao pode ser cancelado.\n");
+        printf("O agendamento ja foi executado e nao pode ser cancelado.\n");
         return;
     }
 
@@ -438,7 +438,7 @@ void menuAgendamentos(Agendamentos *agendamentos, Servicos *servicos, Funcionari
                 break;
             case 0:
                 printf("Voltando...\n");
-                break;
+                return;
             default:
                 printf("Opção invalida, tente novamente.\n");
                 break;
@@ -478,7 +478,7 @@ void menuServicos(Servicos *servicos, Agendamentos *agendamentos, Funcionarios *
                 break;
             case 0:
                 printf("Saindo...\n");
-                break;
+                return;
             default:
                 printf("Opção inválida, tente novamente.\n");
                 break;
