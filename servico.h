@@ -22,8 +22,13 @@ typedef Servico *Servicos;
 int idServicos = 1;
 
 Servicos *criarListaServicos() {
-    Servicos *servicos;
-    *servicos = NULL;
+    Servicos *servicos = (Servicos*) malloc(sizeof(servicos));
+    if(servicos != NULL) {
+        *servicos = NULL;
+    }else {
+        printf("Erro na alocacao da lista de servicos!");
+        exit(0);
+    }
     return servicos;
 }
 
@@ -189,13 +194,18 @@ typedef Agendamento* Agendamentos;
 int idAgendamentos = 1;
 
 Agendamentos* criarListaAgendamentos() {
-    Agendamentos *agendamentos;
-    *agendamentos = NULL;
+    Agendamentos *agendamentos = (Agendamentos*) malloc(sizeof(agendamentos));
+    if(agendamentos != NULL) {
+        *agendamentos = NULL;
+    }else {
+        printf("Erro na alocacao da lista de agendamentos!");
+        exit(0);
+    }
     return agendamentos;
 }
 
 Agendamento* criarAgendamento() {
-    Agendamento* novo = (Agendamento*)malloc(sizeof(Agendamento));
+    Agendamento* novo = (Agendamento*) malloc(sizeof(Agendamento));
     if (novo == NULL) {
         printf("Erro ao alocar memoria...\n");
         return NULL;
