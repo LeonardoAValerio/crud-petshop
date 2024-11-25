@@ -9,6 +9,13 @@
 
 #define TAMANHO_DESCRICAO_SERVICO 200
 
+void esperarEnterServ() {
+    fflush(stdin);
+    printf("Pressione Enter para continuar...\n");
+    getchar();
+    fflush(stdin);
+}
+
 struct servico {
     int id;
     char descricao[TAMANHO_DESCRICAO_SERVICO];
@@ -22,8 +29,13 @@ typedef Servico *Servicos;
 int idServicos = 1;
 
 Servicos *criarListaServicos() {
-    Servicos *servicos;
-    *servicos = NULL;
+    Servicos *servicos = (Servicos*) malloc(sizeof(servicos));
+    if(servicos != NULL) {
+        *servicos = NULL;
+    }else {
+        printf("Erro na alocacao da lista de servicos!");
+        exit(0);
+    }
     return servicos;
 }
 
@@ -69,13 +81,13 @@ void inserirServico(Servicos *servicos) {
         novo->ant = atual;
     }
 
-    printf("Servico cadastrado com sucesso!\n");
-    printf("Pressione enter para continuar...\n");
+    esperarEnterServ();
 }
 
 void visualizarServicos(Servicos *servicos) {
     if (*servicos == NULL) {
         printf("Nenhum servico cadastrado.\n");
+        esperarEnterServ();
     } else {
         Servico *serv = *servicos;
         while (serv != NULL) {
@@ -85,7 +97,7 @@ void visualizarServicos(Servicos *servicos) {
             serv = serv->prox;
         }
     }
-    printf("\nPressione enter para continuar...\n");
+    esperarEnterServ();
 }
 
 void editarServico(Servicos *servicos) {
@@ -93,6 +105,7 @@ void editarServico(Servicos *servicos) {
 
     if (servicos == NULL) {
         printf("Nenhum servico cadastrado para editar.\n");
+        esperarEnterServ();
         return;
     }
 
@@ -113,14 +126,14 @@ void editarServico(Servicos *servicos) {
     } else {
         printf("Editando servico com ID %d:\n", id);
 
-        printf("Descricao atual: %s\n", serv->descricao);
-        printf("Informe a nova descricao: \n");
+        printf("Descricao atual: %s", serv->descricao);
+        printf("Informe a nova descricao: ");
         fflush(stdin);
         fgets(serv->descricao, TAMANHO_DESCRICAO_SERVICO, stdin);
         fflush(stdin);
 
-        printf("Preco atual: R$ %.2f\n", serv->preco);
-        printf("Informe o novo preco: \n");
+        printf("Preco atual: R$ %.2f", serv->preco);
+        printf("Informe o novo preco: ");
         fflush(stdin);
         scanf("%f", &serv->preco);
         fflush(stdin);
@@ -128,7 +141,7 @@ void editarServico(Servicos *servicos) {
         printf("Servico atualizado com sucesso!\n");
     }
 
-    printf("Pressione enter para continuar...\n");
+    esperarEnterServ();
 }
 
 void deletarServico(Servicos *servicos) {
@@ -169,7 +182,7 @@ void deletarServico(Servicos *servicos) {
         printf("Servico com ID %d excluido com sucesso.\n", id);
     }
 
-    printf("Pressione enter para continuar...\n");
+    esperarEnterServ();
 }
 
 #define TAMANHO_STATUS 20
@@ -189,13 +202,18 @@ typedef Agendamento* Agendamentos;
 int idAgendamentos = 1;
 
 Agendamentos* criarListaAgendamentos() {
-    Agendamentos *agendamentos;
-    *agendamentos = NULL;
+    Agendamentos *agendamentos = (Agendamentos*) malloc(sizeof(agendamentos));
+    if(agendamentos != NULL) {
+        *agendamentos = NULL;
+    }else {
+        printf("Erro na alocacao da lista de agendamentos!");
+        exit(0);
+    }
     return agendamentos;
 }
 
 Agendamento* criarAgendamento() {
-    Agendamento* novo = (Agendamento*)malloc(sizeof(Agendamento));
+    Agendamento* novo = (Agendamento*) malloc(sizeof(Agendamento));
     if (novo == NULL) {
         printf("Erro ao alocar memoria...\n");
         return NULL;
@@ -203,28 +221,27 @@ Agendamento* criarAgendamento() {
     novo->idAgendamento = idAgendamentos++;
     novo->prox = NULL;
 
-    printf("Informe o ID do servico: \n");
+    printf("Informe o ID do servico: ");
     fflush(stdin);
     scanf("%d", &novo->idServico);
     fflush(stdin);
 
-    printf("Informe o ID do pet: \n");
+    printf("Informe o ID do pet: ");
     fflush(stdin);
     scanf("%d", &novo->idPet);
     fflush(stdin);
 
-    printf("Informe o ID do funcionario: \n");
+    printf("Informe o ID do funcionario: ");
     fflush(stdin);
     scanf("%d", &novo->idFuncionario);
     fflush(stdin);
 
-    printf("Informe a data do agendamento (DD/MM/AAAA): \n");
+    printf("Informe a data do agendamento (DD/MM/AAAA): ");
     fflush(stdin);
     scanf("%s", novo->data);
     fflush(stdin);
 
     strcpy(novo->status, "agendado");
-
     return novo;
 }
 
@@ -232,21 +249,25 @@ void inserirAgendamento(Agendamentos *agendamentos, Servicos *servicos, Funciona
     Agendamento* novo = criarAgendamento();
     if (novo == NULL) {
         printf("Falha ao criar o agendamento!\n");
+        esperarEnterServ();
         return;
     }
 
     if (*servicos == NULL) {
-        printf("Nenhum servico cadastrado.\n");
+        printf("Servico com ID %d nao encontrado.\n", novo->idServico);
+        esperarEnterServ();
         return;
     }
 
     if (*funcionarios == NULL) {
-        printf("Nenhum funcionario cadastrado.\n");
+        printf("Funcionario com ID %d nao encontrado.\n", novo->idFuncionario);
+        esperarEnterServ();
         return;
     }
 
     if (*pets == NULL) {
-        printf("Nenhum pet cadastrado.\n");
+        printf("Pet com ID %d nao encontrado.\n", novo->idPet);
+        esperarEnterServ();
         return;
     }
 
@@ -261,15 +282,17 @@ void inserirAgendamento(Agendamentos *agendamentos, Servicos *servicos, Funciona
     }
 
     printf("Agendamento cadastrado com sucesso!\n");
+    esperarEnterServ();
 }
 
 void listarAgendamentos(Agendamentos *agendamentos) {
     if (*agendamentos == NULL) {
         printf("Nenhum agendamento encontrado.\n");
+        esperarEnterServ();
     } else {
         Agendamento* ag = *agendamentos;
         while (ag != NULL) {
-            printf("\nID Agendamento: %d\n", ag->idAgendamento);
+            printf("\nID: %d\n", ag->idAgendamento);
             printf("Data: %s\n", ag->data);
             printf("Servico ID: %d\n", ag->idServico);
             printf("Pet ID: %d\n", ag->idPet);
@@ -278,11 +301,14 @@ void listarAgendamentos(Agendamentos *agendamentos) {
             ag = ag->prox;
         }
     }
-    printf("\nPressione enter para continuar...\n");
+    esperarEnterServ();
 }
 
 void executarAgendamento(Agendamentos* agendamentos) {
     int idAgendamento;
+
+    listarAgendamentos(agendamentos);
+
     printf("\nInforme o ID do agendamento a ser executado: ");
     fflush(stdin);
     scanf("%d", &idAgendamento);
@@ -295,25 +321,32 @@ void executarAgendamento(Agendamentos* agendamentos) {
 
     if (ag == NULL) {
         printf("Agendamento com ID %d nao encontrado.\n", idAgendamento);
+        esperarEnterServ();
         return;
     }
 
     if (strcmp(ag->status, "executado") == 0) {
         printf("\nO agendamento ja foi executado.\n");
+        esperarEnterServ();
         return;
     }
 
     if (strcmp(ag->status, "cancelado") == 0) {
         printf("\nO agendamento foi cancelado e nao pode ser executado.\n");
+        esperarEnterServ();
         return;
     }
 
     strcpy(ag->status, "executado");
     printf("Agendamento ID %d foi marcado como executado.\n", idAgendamento);
+    esperarEnterServ();
 }
 
 void cancelarAgendamento(Agendamentos* agendamentos) {
     int idAgendamento;
+
+    listarAgendamentos(agendamentos);
+
     printf("\nInforme o ID do agendamento a ser cancelado: ");
     fflush(stdin);
     scanf("%d", &idAgendamento);
@@ -326,25 +359,32 @@ void cancelarAgendamento(Agendamentos* agendamentos) {
 
     if (ag == NULL) {
         printf("\nAgendamento com ID %d nao encontrado.\n", idAgendamento);
+        esperarEnterServ();
         return;
     }
 
     if (strcmp(ag->status, "executado") == 0) {
         printf("O agendamento ja foi executado e nao pode ser cancelado.\n");
+        esperarEnterServ();
         return;
     }
 
     if (strcmp(ag->status, "cancelado") == 0) {
         printf("O agendamento ja foi cancelado.\n");
+        esperarEnterServ();
         return;
     }
 
     strcpy(ag->status, "cancelado");
     printf("Agendamento ID %d foi cancelado.\n", idAgendamento);
+    esperarEnterServ();
 }
 
 void gerarRecibo(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *funcionarios, Pets *pets) {
     int idAgendamento;
+
+    listarAgendamentos(agendamentos);
+
     printf("\nInforme o ID do agendamento para gerar o recibo: ");
     fflush(stdin);
     scanf("%d", &idAgendamento);
@@ -357,11 +397,13 @@ void gerarRecibo(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *f
 
     if (ag == NULL) {
         printf("Agendamento com ID %d nao encontrado.\n", idAgendamento);
+        esperarEnterServ();
         return;
     }
 
     if (strcmp(ag->status, "executado") != 0) {
-        printf("O serviço ainda nao foi executado.\n");
+        printf("O servico ainda nao foi executado.\n");
+        esperarEnterServ();
         return;
     }
 
@@ -371,7 +413,8 @@ void gerarRecibo(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *f
     }
 
     if (serv == NULL) {
-        printf("Serviço com ID %d nao encontrado.\n", ag->idServico);
+        printf("Servico com ID %d nao encontrado.\n", ag->idServico);
+        esperarEnterServ();
         return;
     }
 
@@ -381,7 +424,8 @@ void gerarRecibo(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *f
     }
 
     if (func == NULL) {
-        printf("Funcionário com ID %d nao encontrado.\n", ag->idFuncionario);
+        printf("Funcionario com ID %d nao encontrado.\n", ag->idFuncionario);
+        esperarEnterServ();
         return;
     }
 
@@ -392,17 +436,19 @@ void gerarRecibo(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *f
 
     if (pet == NULL) {
         printf("Pet com ID %d nao encontrado.\n", ag->idPet);
+        esperarEnterServ();
         return;
     }
 
     printf("\n--- RECIBO ---\n");
-    printf("Agendamento ID: %d\n", ag->idAgendamento);
-    printf("Serviço: %s", serv->descricao);
+    printf("ID: %d\n", ag->idAgendamento);
+    printf("Servico: %s", serv->descricao);
     printf("Preco: R$ %.2f\n", serv->preco);
     printf("Pet: %s\n", pet->nome);
     printf("Funcionario: %s\n", func->nome);
     printf("Data do Agendamento: %s\n", ag->data);
     printf("----------------\n");
+    esperarEnterServ();
 }
 
 void menuAgendamentos(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *funcionarios, Pets *pets) {
@@ -454,7 +500,7 @@ void menuServicos(Servicos *servicos, Agendamentos *agendamentos, Funcionarios *
         printf("[2] - Listar Servicos\n");
         printf("[3] - Editar Servico\n");
         printf("[4] - Excluir Servico\n");
-        printf("[5] - Agendamentos\n");
+        printf("[5] - Agendar Servico\n");
         printf("[0] - Sair\n");
         printf("Escolha uma opcao: ");
         fflush(stdin);
