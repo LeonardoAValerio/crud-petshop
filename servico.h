@@ -29,7 +29,7 @@ typedef Servico *Servicos;
 int idServicos = 1;
 
 Servicos *criarListaServicos() {
-    Servicos *servicos = (Servicos*) malloc(sizeof(servicos));
+    Servicos *servicos = (Servicos*) malloc(sizeof(Servico*));
     if(servicos != NULL) {
         *servicos = NULL;
     }else {

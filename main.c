@@ -2,6 +2,7 @@
 #include "funcionario.h"
 #include "cliente.h"
 #include "servico.h"
+#include "financeiro.h"
 
 int main(void)
 {
@@ -49,7 +50,7 @@ int main(void)
         }
         else if (option == 6)
         {
-            printf("Em producao...\n");
+            menuFinanceiro(agendamento, servicos);
         }
         else if (option == 0)
         {

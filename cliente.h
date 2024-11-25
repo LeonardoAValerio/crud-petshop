@@ -111,7 +111,7 @@ void listarClientesFiltradosPorNome(Clientes* clientes, char filtro[TAMANHO_NOME
 
 void limparClientes(Clientes* clientes) {
     if(*clientes == NULL) {
-        printf("Não existem clientes, a lista já está limpa!\n");
+        printf("Nao existem clientes, a lista ja esta limpa!\n");
     } else {
         while ((*clientes) != NULL) {
             Cliente* cliente = *clientes;
