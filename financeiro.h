@@ -108,7 +108,7 @@ void relatorioMes() {
     printf("\n--- Relatorio Mensal ---\n");
 }
 
-void menuFinanceiro(Agendamentos *agendamento, Servico *servicos){
+void menuFinanceiro(Agendamentos *agendamento, Servicos *servicos){
     int option;
     for(;;) {
         system("cls");
