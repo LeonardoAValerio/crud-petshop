@@ -200,12 +200,12 @@ void menuProdutos() {
     
     do {
         printf("\n Menu de Produtos:\n");
-        printf("1. Cadastrar Produto\n");
-        printf("2. Editar Produto\n");
-        printf("3. Vender Produto\n");
-        printf("4. Visualizar Produtos\n");
-        printf("5. Excluir Produto\n");
-        printf("6. Retornar ao menu principal\n");
+        printf("[1] Cadastrar Produto\n");
+        printf("[2] Editar Produto\n");
+        printf("[3] Vender Produto\n");
+        printf("[4] Visualizar Produtos\n");
+        printf("[5] Excluir Produto\n");
+        printf("[0] Retornar ao menu principal\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
         
@@ -225,8 +225,8 @@ void menuProdutos() {
             case 5:
                 excluirProduto();
                 break;
-            case 6:
-                printf("Saindo do sistema...\n");
+            case 0:
+                printf("Voltando...\n");
                 break;
             default:
                 printf("Opcao invalida. Tente novamente.\n");
