@@ -379,7 +379,7 @@ void menuProdutos(Produtos* produtos, Vendas *vendas, Clientes* clientes) {
             default:
                 printf("Opcao invalida. Tente novamente.\n");
         }
-    } while (opcao != 5);
+    } while (opcao != 0);
 }
 
 #endif
