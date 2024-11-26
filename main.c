@@ -67,5 +67,6 @@ int main(void)
     limparPets(pets);
     deletarListaFunc(funcionarios);
     limparClientes(clientes);
+    limparVendas(vendas);
     return 0;
 }
