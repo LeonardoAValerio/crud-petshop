@@ -1,4 +1,4 @@
-/*#ifndef SERVICO_H
+#ifndef SERVICO_H
 #define SERVICO_H
 
 #include <stdio.h>
@@ -435,82 +435,8 @@ void gerarRecibo(Agendamentos *agendamentos, Servicos *servicos, Funcionarios *f
     }
 
     if (pet == NULL) {
-<<<<<<< HEAD
-        printf("Pet com ID %d nao encontrado.\n", idPets);
-        return;
-    }
-
-    printf("Servico com ID %d executado por %s no pet %s.\n", serv->id, func->nome, pet->nome);
-    printf("Descricao do servico: %s", serv->descricao);
-    printf("Preco do servico: R$ %.2f\n", serv->preco);
-
-    printf("Servico executado com sucesso!\n");
-    printf("Pressione enter para continuar...\n");
-    getchar();
-}
-*/
-
-/*
-void agendarServico(Servicos servicos) {
-    printf("\nAgendamento:\n");
-
-    if (servicos == NULL) {
-        printf("Nenhum servico cadastrado.\n");
-        return;
-    }
-
-    int idServico;
-    char data[11];
-
-    printf("Informe o ID do servico a ser agendado: ");
-    scanf("%d", &idServico);
-    fflush(stdin);
-
-    Servico *serv = servicos;
-    while (serv != NULL && serv->id != idServico) {
-        serv = serv->prox;
-    }
-
-    if (serv == NULL) {
-        printf("Servico com ID %d nao encontrado.\n", idServico);
-        return;
-    }
-
-    printf("Informe a data do agendamento (dd/mm/aaaa): ");
-    scanf("%s", data);
-
-    printf("\nServico agendado com sucesso!\n"); 
-    printf("Servico: %s", serv->descricao);
-    printf("Preco: R$ %.2f\n", serv->preco);
-    printf("Data de agendamento: %s\n", data);
-}
-*/
-
-/*void emitirRecibo(Servicos servicos) {
-    printf("\nRecibo:\n");
-
-    if (servicos == NULL) {
-        printf("Nenhum servico cadastrado.\n");
-        return;
-    }
-
-    int idServico;
-
-    printf("Informe o ID do servico para emitir recibo: ");
-    scanf("%d", &idServico);
-    fflush(stdin);
-
-    Servico *serv = servicos;
-    while (serv != NULL && serv->id != idServico) {
-        serv = serv->prox;
-    }
-
-    if (serv == NULL) {
-        printf("Servico com ID %d nao encontrado.\n", idServico);
-=======
         printf("Pet com ID %d nao encontrado.\n", ag->idPet);
         esperarEnterServ();
->>>>>>> main
         return;
     }
 
@@ -606,9 +532,4 @@ void menuServicos(Servicos *servicos, Agendamentos *agendamentos, Funcionarios *
     } while (opcao != 8);
 }
 
-<<<<<<< HEAD
 #endif
-/*
-=======
-#endif
->>>>>>> main
