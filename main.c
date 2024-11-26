@@ -14,6 +14,7 @@ int main(void)
     Servicos *servicos = criarListaServicos();
     Agendamentos *agendamento = criarListaAgendamentos();
     Produtos* produtos = criarListaProdutos();
+    Vendas* vendas = criarListaVendas();
     for (;;)
     {
         system("cls");
@@ -35,7 +36,7 @@ int main(void)
         }
         else if (option == 2)
         {
-            menuProdutos(produtos);
+            menuProdutos(produtos, vendas, clientes);
         }
         else if (option == 3)
         {
