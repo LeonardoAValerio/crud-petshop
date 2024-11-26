@@ -187,11 +187,11 @@ void menuProdutos(Produtos* produtos) {
     int opcao;
     do {
         printf("\n--- Menu de Produtos ---\n");
-        printf("1. Cadastrar Produto\n");
-        printf("2. Editar Produto\n");
-        printf("3. Visualizar Produtos\n");
-        printf("4. Excluir Produto\n");
-        printf("5. Voltar ao Menu Principal\n");
+        printf("[1] Cadastrar Produto\n");
+        printf("[2] Editar Produto\n");
+        printf("[3] Visualizar Produtos\n");
+        printf("[4] Excluir Produto\n");
+        printf("[0] Voltar ao Menu Principal\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
