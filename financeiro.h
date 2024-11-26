@@ -1,13 +1,13 @@
 #ifndef FINANCEIRO_H
 #define FINANCEIRO_H
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
 #include <string.h>
 
 #include "servico.h"
+#include "produto.h"
 
 void esperaEnter() {
     fflush(stdin);
@@ -27,7 +27,6 @@ void relatorioServ(Agendamentos *agendamentos, Servicos *servicos) {
         esperaEnter();
         return;
     }
-
     if (*agendamentos == NULL) {
         printf("\n--- Lista de Servicos Disponiveis ---\n");
         Servico *servAtual = *servicos;
@@ -37,7 +36,9 @@ void relatorioServ(Agendamentos *agendamentos, Servicos *servicos) {
             printf("Preco: R$ %.2f\n", servAtual->preco);
             printf("---------------------------\n");
             servAtual = servAtual->prox;
+            contServicos++;
         }
+        printf("\nTotal de Servicos Cadastrados: %d\n",contServicos);
         esperaEnter();
         return;
     }
@@ -46,7 +47,7 @@ void relatorioServ(Agendamentos *agendamentos, Servicos *servicos) {
     int encontrouAgendamento = 0;
 
     printf("\n--- Lista de Servicos Disponiveis ---\n");
-        Servico *servAtual = *servicos;
+    Servico *servAtual = *servicos;
         while (servAtual != NULL) {
             printf("ID: %i\n", servAtual->id);
             printf("Servico: %s", servAtual->descricao);
@@ -73,7 +74,6 @@ void relatorioServ(Agendamentos *agendamentos, Servicos *servicos) {
                     total += servAtual->preco;
                     contExecutados++;
                 }
-
                 printf("---------------------------\n");
                 encontrouAgendamento = 1;
                 break;
@@ -98,17 +98,126 @@ void relatorioServ(Agendamentos *agendamentos, Servicos *servicos) {
     esperaEnter();
 }
 
-
-void relatorioVen(){
+void relatorioProdutos(Vendas *vendas, Produtos *produtos) {
     printf("\n--- Relatorio de Produtos ---\n");
 
+    if (produtos->totalProdutos == 0) {
+        printf("Sem Produtos cadastrados\n\n");
+        esperaEnter();
+        return;
+    }
+
+    printf("\n--- Produtos cadastrados ---\n");
+    Produto *pdAtual = produtos->inicio;
+    int contProdutos = 0;
+    float totalEstoque = 0.0;
+
+    while (pdAtual != NULL) {
+        printf("ID: %d\n", pdAtual->id);
+        printf("Nome: %s\n", pdAtual->nome);
+        printf("Quantidade em estoque: %d\n", pdAtual->quantidade);
+        printf("Preco: R$ %.2f\n", pdAtual->valor);
+        printf("---------------------------\n");
+        totalEstoque += pdAtual->quantidade * pdAtual->valor;
+        contProdutos++;
+        pdAtual = pdAtual->proximo;
+    }
+
+    if (*vendas == NULL) {
+        printf("Sem vendas registradas.\n");
+        printf("\n\n--- Resumo do Estoque ---\n");
+        printf("Total de Produtos Cadastrados: %d\n", contProdutos);
+        printf("Valor Total Estimado do Estoque: R$ %.2f\n", totalEstoque);
+        esperaEnter();
+        return;
+    }
+
+    float total = 0.0;
+    int totalVdPd = 0;
+    int contVendas = 0;
+    int encontrouVenda = 0;
+
+    printf("\n--- Vendas Cadastradas ---\n");
+    Venda *vdAtual = *vendas;
+
+    while (vdAtual != NULL) {
+        pdAtual = produtos->inicio;
+        encontrouVenda = 0;
+
+        while (pdAtual != NULL) {
+            if (vdAtual->idProduto == pdAtual->id) {
+                printf("\nProduto: \n[ID#%d]\n", vdAtual->idProduto);
+                printf("Nome produto: %s\n", vdAtual->nomeProduto);
+                printf("Cliente: %s\n", vdAtual->nomeCliente);
+                printf("Valor produto: R$ %.2f\n", vdAtual->valorProduto);
+                printf("Quantidade: %d\n", vdAtual->quantidade);
+                printf("Valor total: R$ %.2f\n", vdAtual->valorTotal);
+                printf("---------------------------\n");
+                total += vdAtual->valorTotal;
+                totalVdPd += vdAtual->quantidade;
+                encontrouVenda = 1;
+                contVendas++;
+                break;
+            }
+            pdAtual = pdAtual->proximo;
+        }
+
+        if (!encontrouVenda) {
+            printf("Venda com ID de produto inválido: %d\n", vdAtual->idProduto);
+        }
+
+        vdAtual = vdAtual->prox;
+    }
+
+    printf("\n\n--- Resumo do Estoque ---\n");
+    printf("Total de Produtos Cadastrados: %d\n", contProdutos);
+    printf("Valor Total Estimado do Estoque: R$ %.2f\n", totalEstoque);
+
+    printf("\n\n--- Resumo do Vendas ---\n");
+    printf("Total de Produtos Vendidos: %d\n", totalVdPd);
+    printf("Total de Vendas: %d\n", contVendas);
+    printf("Total arrecadado com Produtos Vendidos: R$ %.2f\n", total);
+
+    esperaEnter();
 }
 
-void relatorioMes() {
-    printf("\n--- Relatorio Mensal ---\n");
+void relatorioTotal(Agendamentos *agendamentos, Servicos *servicos, Vendas *vendas) {
+    printf("\n--- Relatorio Financeiro ---\n");
+
+    float totalArrecadadoServicos = 0.0;
+    float totalArrecadadoProdutos = 0.0;
+
+    if (*servicos != NULL && *agendamentos != NULL) {
+        Agendamento *agAtual = *agendamentos;
+        while (agAtual != NULL) {
+            Servico *servAtual = *servicos;
+            while (servAtual != NULL) {
+                if (servAtual->id == agAtual->idServico && strcmp(agAtual->status, "executado") == 0) {
+                    totalArrecadadoServicos += servAtual->preco;
+                    break;
+                }
+                servAtual = servAtual->prox;
+            }
+            agAtual = agAtual->prox;
+        }
+    }
+
+    if (*vendas != NULL) {
+        Venda *vdAtual = *vendas;
+        while (vdAtual != NULL) {
+            totalArrecadadoProdutos += vdAtual->valorTotal;
+            vdAtual = vdAtual->prox;
+        }
+    }
+
+    printf("Total arrecadado com Servicos Executados: R$ %.2f\n", totalArrecadadoServicos);
+    printf("Total arrecadado com Produtos Vendidos: R$ %.2f\n", totalArrecadadoProdutos);
+    printf("\nTotal Geral Arrecadado: R$ %.2f\n", totalArrecadadoServicos + totalArrecadadoProdutos);
+
+    esperaEnter();
 }
 
-void menuFinanceiro(Agendamentos *agendamento, Servicos *servicos){
+void menuFinanceiro(Agendamentos *agendamento, Servicos *servicos, Produtos *produtos, Vendas *vendas){
     int option;
     for(;;) {
         system("cls");
@@ -121,15 +230,14 @@ void menuFinanceiro(Agendamentos *agendamento, Servicos *servicos){
         fflush(stdin);
         scanf("%d", &option);
 
-
         if(option == 1){
             relatorioServ(agendamento, servicos);
             esperaEnter();
         }else if(option == 2){
-            relatorioVen();
+            relatorioProdutos(vendas, produtos);
             esperaEnter();
         }else if(option == 3){
-            relatorioMes();
+            relatorioTotal(agendamento, servicos, vendas);
             esperaEnter();
         }else if (option == 0) {
             printf("Voltando...\n");
@@ -139,5 +247,4 @@ void menuFinanceiro(Agendamentos *agendamento, Servicos *servicos){
         }
     }
 }
-
 #endif

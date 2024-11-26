@@ -52,7 +52,7 @@ int main(void)
         }
         else if (option == 6)
         {
-            menuFinanceiro(agendamento, servicos);
+            menuFinanceiro(agendamento, servicos, produtos, vendas);
         }
         else if (option == 0)
         {
