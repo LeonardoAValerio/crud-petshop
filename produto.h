@@ -208,7 +208,7 @@ void menuProdutos(Produtos* produtos) {
             case 4:
                 excluirProduto(produtos);
                 break;
-            case 5:
+            case 0:
                 printf("Retornando ao menu principal...\n");
                 break;
             default:
