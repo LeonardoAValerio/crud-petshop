@@ -210,7 +210,7 @@ void menuProdutos(Produtos* produtos) {
                 break;
             case 0:
                 printf("Retornando ao menu principal...\n");
-                break;
+                return;
             default:
                 printf("Opcao invalida. Tente novamente.\n");
         }
