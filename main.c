@@ -3,6 +3,7 @@
 #include "cliente.h"
 #include "servico.h"
 #include "financeiro.h"
+#include "produto.h"
 
 int main(void)
 {
@@ -12,7 +13,8 @@ int main(void)
     Clientes* clientes = criarListaClientes();
     Servicos *servicos = criarListaServicos();
     Agendamentos *agendamento = criarListaAgendamentos();
-
+    Produtos* produtos = criarListaProdutos();
+    Vendas* vendas = criarListaVendas();
     for (;;)
     {
         system("cls");
@@ -34,7 +36,7 @@ int main(void)
         }
         else if (option == 2)
         {
-            printf("Em producao...\n");
+            menuProduto(produtos, vendas, clientes);
         }
         else if (option == 3)
         {
@@ -65,5 +67,6 @@ int main(void)
     limparPets(pets);
     deletarListaFunc(funcionarios);
     limparClientes(clientes);
+    limparVendas(vendas);
     return 0;
 }
