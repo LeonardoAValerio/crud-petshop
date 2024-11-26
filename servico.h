@@ -1,4 +1,4 @@
-#ifndef SERVICO_H
+/*#ifndef SERVICO_H
 #define SERVICO_H
 
 #include <stdio.h>
@@ -282,7 +282,7 @@ void agendarServico(Servicos servicos) {
 }
 */
 
-void emitirRecibo(Servicos servicos) {
+/*void emitirRecibo(Servicos servicos) {
     printf("\nRecibo:\n");
 
     if (servicos == NULL) {
@@ -366,3 +366,4 @@ void menuServicos(Servicos servicos, Funcionarios *funcionarios, Pets *pets) {
 }
 
 #endif
+/*

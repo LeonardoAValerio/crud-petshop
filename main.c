@@ -1,7 +1,8 @@
 #include "animal.h"
 #include "funcionario.h"
 #include "cliente.h"
-#include "servico.h"
+//#include "servico.h"
+#include "produto.h"
 
 int main(void)
 {
@@ -9,7 +10,9 @@ int main(void)
     Pets *pets = criarListaPets();
     Funcionarios *funcionarios = criarListaFunc();
     Clientes* clientes = criarListaClientes();
-    Servicos *servicos = criarListaServicos();
+    //Servicos *servicos = criarListaServicos();
+    //Produtos *produtos = criarListaProdutos();
+ 
 
     for (;;)
     {
@@ -22,7 +25,7 @@ int main(void)
         printf("[5] - Gerenciamento Funcionarios\n");
         printf("[6] - Relatorios Financeiros\n");
         printf("[0] - Encerrar Programa\n\n");
-        printf("Informe oque deseja: ");
+        printf("Informe o que deseja: ");
         scanf("%d", &option);
         fflush(stdin);
         if (option == 1)
@@ -31,11 +34,12 @@ int main(void)
         }
         else if (option == 2)
         {
-            printf("Em producao...\n");
+            menuProdutos();
         }
         else if (option == 3)
         {
-            menuServicos(servicos, funcionarios, pets);
+            printf("Em correção\n");
+            //menuServicos(servicos, funcionarios, pets);
 
         }
         else if (option == 4)
